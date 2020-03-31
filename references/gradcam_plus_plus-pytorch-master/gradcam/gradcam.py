@@ -59,15 +59,14 @@ class GradCAM:
         # return self.activations['value'].shape[2:]
 
     def forward(self, input, class_idx=None, retain_graph=False):
-        print("INSIDE")
         b, c, h, w = input.size()
-        
+
         logit = self.model_arch(input)
         if class_idx is None:
             score = logit[:, logit.max(1)[-1]].squeeze()
         else:
             score = logit[:, class_idx].squeeze()
-        print("next")
+
         self.model_arch.zero_grad()
         score.backward(retain_graph=retain_graph)
         gradients = self.gradients['value']
