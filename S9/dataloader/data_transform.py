@@ -11,6 +11,7 @@ def albumentations_transforms(p=1.0, is_train=False):
 			                    HorizontalFlip(p=0.5),
 			                    Rotate(limit=15),
 			                    Cutout()])
+                                
 	transforms_list.extend([Normalize(mean=mean, std=std, max_pixel_value=255.0, p=1.0),
 		                    ToTensor()])
 	transforms = Compose(transforms_list, p=p)
